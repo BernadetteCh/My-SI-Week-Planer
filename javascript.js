@@ -54,5 +54,13 @@ function displayTodos() {
     // todoContent.style.textDecoration = "line-through";
     // }
   });
+
+  let checkTodo = document.querySelectorAll(".done");
+  let removeTodo = document.querySelectorAll(".delete");
+  let checkTodoArray = Array.from(checkTodo);
+  let removeTodoArray = Array.from(removeTodo);
+
+  markTodoAsChecked(checkTodoArray);
+  removeTodoFromList(removeTodoArray);
 }
 // event.target.previousElementSibling.style.textDecoration = "line-through";
