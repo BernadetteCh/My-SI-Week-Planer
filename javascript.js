@@ -40,6 +40,16 @@ function removeTodoFromList(removeTodoArray) {
   });
 }
 
+function markTodoAsChecked(checkTodoArray) {
+  checkTodoArray.forEach(function (todo, index) {
+    todo.addEventListener("click", () => {
+      console.log(todos[index].completed);
+      todos[index].completed = true;
+      localStorage.setItem("todos", JSON.stringify(todos));
+    });
+  });
+}
+
 function displayTodos() {
   todoList.innerHTML = "";
   input.value = "";
@@ -72,7 +82,7 @@ function displayTodos() {
   let checkTodoArray = Array.from(checkTodo);
   let removeTodoArray = Array.from(removeTodo);
 
-  //markTodoAsChecked(checkTodoArray);
+  markTodoAsChecked(checkTodoArray);
   removeTodoFromList(removeTodoArray);
 }
 // event.target.previousElementSibling.style.textDecoration = "line-through";
