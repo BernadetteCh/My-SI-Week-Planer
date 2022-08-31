@@ -9,6 +9,7 @@ webpage (HTML) has loaded fully, including all dependent resources,
 including JavaScript files, CSS files, and images. */
 window.addEventListener("load", () => {
   todos = JSON.parse(localStorage.getItem("todos"));
+
   if (todos === null) {
     todos = [];
   } else {
@@ -32,8 +33,8 @@ window.addEventListener("load", () => {
 function removeTodoFromList(removeTodoArray) {
   removeTodoArray.forEach(function (todo, index) {
     todo.addEventListener("click", () => {
-      let newTodos = todos.splice(todos.indexOf(todos[index]), 1);
-      localStorage.setItem("todos", JSON.stringify(newTodos));
+      todos.splice(todos.indexOf(todos[index]), 1);
+      localStorage.setItem("todos", JSON.stringify(todos));
       displayTodos();
     });
   });
@@ -71,7 +72,7 @@ function displayTodos() {
   let checkTodoArray = Array.from(checkTodo);
   let removeTodoArray = Array.from(removeTodo);
 
-  markTodoAsChecked(checkTodoArray);
+  //markTodoAsChecked(checkTodoArray);
   removeTodoFromList(removeTodoArray);
 }
 // event.target.previousElementSibling.style.textDecoration = "line-through";
