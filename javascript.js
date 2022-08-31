@@ -28,6 +28,17 @@ window.addEventListener("load", () => {
   });
   displayTodos();
 });
+
+function removeTodoFromList(removeTodoArray) {
+  removeTodoArray.forEach(function (todo, index) {
+    todo.addEventListener("click", () => {
+      let newTodos = todos.splice(todos.indexOf(todos[index]), 1);
+      localStorage.setItem("todos", JSON.stringify(newTodos));
+      displayTodos();
+    });
+  });
+}
+
 function displayTodos() {
   todoList.innerHTML = "";
   input.value = "";
