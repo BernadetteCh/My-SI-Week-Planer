@@ -2,6 +2,7 @@ const button = document.querySelector(".addTodo");
 const input = document.querySelector(".todoInput");
 const todoList = document.getElementById("todo-list");
 let todos;
+let completedTodo;
 
 /*For the window object, the load event is fired when the whole
 webpage (HTML) has loaded fully, including all dependent resources,
@@ -27,5 +28,31 @@ window.addEventListener("load", () => {
   });
   displayTodos();
 });
-
+function displayTodos() {
+  todoList.innerHTML = "";
+  input.value = "";
+  todos.forEach(function (todo) {
+    let todoLine = document.createElement("div");
+    let todoContent = document.createElement("span");
+    todoList.appendChild(todoLine);
+    todoLine.appendChild(todoContent);
+    todoContent.innerHTML = todo.content;
+    todoLine.setAttribute("class", "todos");
+    todoContent.setAttribute("class", "text");
+    let checkButton = document.createElement("button");
+    checkButton.setAttribute("class", "done");
+    todoLine.appendChild(checkButton);
+    checkButton.innerHTML = "OK";
+    let deleteButton = document.createElement("button");
+    todoLine.appendChild(deleteButton);
+    deleteButton.setAttribute("class", "delete");
+    deleteButton.innerHTML = "Delete";
+    // input.value.completed = todo.true;
+    completedTodo = todo.completed;
+    // if (completedTodo === true) {
+    // console.log("Yeah");
+    // todoContent.style.textDecoration = "line-through";
+    // }
+  });
+}
 // event.target.previousElementSibling.style.textDecoration = "line-through";
