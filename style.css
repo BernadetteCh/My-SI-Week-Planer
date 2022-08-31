@@ -1,0 +1,20 @@
+main {
+  width: 60%;
+  margin: 0 auto;
+}
+h1 {
+  text-align: center;
+}
+.input-field {
+  text-align: center;
+}
+.todos {
+  padding: 12px;
+}
+
+.delete {
+  float: right;
+}
+.done {
+  float: right;
+}
