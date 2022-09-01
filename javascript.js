@@ -1,6 +1,7 @@
 const button = document.querySelector(".addTodo");
 const input = document.querySelector(".todoInput");
 const todoList = document.getElementById("todo-list");
+const deleteAllButton = document.getElementById("delete-AllTodos");
 let TODOS;
 let completedTodo;
 let countCompletedTodos = 0;
@@ -28,6 +29,17 @@ window.addEventListener("load", () => {
     localStorage.setItem("todos", JSON.stringify(TODOS));
     displayTodos();
   });
+
+  deleteAllButton.addEventListener("click", () => {
+    localStorage.clear("todos");
+
+    if (localStorage.getItem("todos") === null) {
+      console.log("empty");
+      todoList.innerHTML = "";
+      TODOS = [];
+    }
+  });
+
   displayTodos();
 });
 
