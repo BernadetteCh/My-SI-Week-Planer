@@ -1,19 +1,19 @@
 const button = document.querySelector(".addTodo");
 const input = document.querySelector(".todoInput");
 const todoList = document.getElementById("todo-list");
-let todos;
+let TODOS;
 let completedTodo;
 
 /*For the window object, the load event is fired when the whole
 webpage (HTML) has loaded fully, including all dependent resources,
 including JavaScript files, CSS files, and images. */
 window.addEventListener("load", () => {
-  todos = JSON.parse(localStorage.getItem("todos"));
+  TODOS = JSON.parse(localStorage.getItem("TODOS"));
 
-  if (todos === null) {
-    todos = [];
+  if (TODOS === null) {
+    TODOS = [];
   } else {
-    todos = JSON.parse(localStorage.getItem("todos"));
+    TODOS = JSON.parse(localStorage.getItem("TODOS"));
   }
 
   button.addEventListener("click", (event) => {
@@ -23,8 +23,8 @@ window.addEventListener("load", () => {
       id: Math.random() * 2.5,
       completed: false,
     };
-    todos.push(todo);
-    localStorage.setItem("todos", JSON.stringify(todos));
+    TODOS.push(todo);
+    localStorage.setItem("TODOS", JSON.stringify(TODOS));
     displayTodos();
   });
   displayTodos();
@@ -33,8 +33,8 @@ window.addEventListener("load", () => {
 function removeTodoFromList(removeTodoArray) {
   removeTodoArray.forEach(function (todo, index) {
     todo.addEventListener("click", () => {
-      todos.splice(todos.indexOf(todos[index]), 1);
-      localStorage.setItem("todos", JSON.stringify(todos));
+      TODOS.splice(TODOS.indexOf(TODOS[index]), 1);
+      localStorage.setItem("TODOS", JSON.stringify(TODOS));
       displayTodos();
     });
   });
@@ -43,9 +43,9 @@ function removeTodoFromList(removeTodoArray) {
 function markTodoAsChecked(checkTodoArray) {
   checkTodoArray.forEach(function (todo, index) {
     todo.addEventListener("click", () => {
-      console.log(todos[index].completed);
-      todos[index].completed = true;
-      localStorage.setItem("todos", JSON.stringify(todos));
+      TODOS[index].completed = true;
+      localStorage.setItem("TODOS", JSON.stringify(TODOS));
+      displayTodos();
     });
   });
 }
@@ -53,7 +53,7 @@ function markTodoAsChecked(checkTodoArray) {
 function displayTodos() {
   todoList.innerHTML = "";
   input.value = "";
-  todos.forEach(function (todo) {
+  TODOS.forEach(function (todo) {
     let todoLine = document.createElement("div");
     let todoContent = document.createElement("span");
     todoList.appendChild(todoLine);
@@ -71,10 +71,10 @@ function displayTodos() {
     deleteButton.innerHTML = "Delete";
     // input.value.completed = todo.true;
     completedTodo = todo.completed;
-    // if (completedTodo === true) {
-    // console.log("Yeah");
-    // todoContent.style.textDecoration = "line-through";
-    // }
+    if (completedTodo === true) {
+      console.log("Yeah");
+      todoContent.style.textDecoration = "line-through";
+    }
   });
 
   let checkTodo = document.querySelectorAll(".done");
