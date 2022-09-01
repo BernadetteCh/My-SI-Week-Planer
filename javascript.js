@@ -61,14 +61,14 @@ function displayTodos() {
     todoContent.innerHTML = todo.content;
     todoLine.setAttribute("class", "todos");
     todoContent.setAttribute("class", "text");
-    let checkButton = document.createElement("button");
-    checkButton.setAttribute("class", "done");
-    todoLine.appendChild(checkButton);
-    checkButton.innerHTML = "OK";
     let deleteButton = document.createElement("button");
     todoLine.appendChild(deleteButton);
     deleteButton.setAttribute("class", "delete");
     deleteButton.innerHTML = "Delete";
+    let checkButton = document.createElement("button");
+    checkButton.setAttribute("class", "done");
+    todoLine.appendChild(checkButton);
+    checkButton.innerHTML = "OK";
     // input.value.completed = todo.true;
     completedTodo = todo.completed;
     if (completedTodo === true) {
