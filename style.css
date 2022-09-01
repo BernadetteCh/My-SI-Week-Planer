@@ -9,6 +9,9 @@ section {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
+select {
+  display: block;
+}
 .input-field {
   text-align: center;
 }
@@ -18,8 +21,11 @@ section {
 .si-week-hours {
   padding: 12px;
 }
-.date {
+/* .date {
   display: block;
+} */
+.todos {
+  padding: 12px;
 }
 .done,
 .delete,
@@ -33,4 +39,7 @@ section {
 
 #input-todos {
   text-align: center;
+}
+#data-output {
+  margin-top: 100px;
 }
