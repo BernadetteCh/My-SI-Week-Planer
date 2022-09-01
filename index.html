@@ -24,7 +24,7 @@
       <div class="delete-AllTodos-button">
         <button id="delete-AllTodos">Delete All</button>
       </div>
-      <section>
+      <section id="si-week-input-data">
         <div class="si-week">
           <label for="si-week">SI-Week</label>
           <select id="si-week">
@@ -43,11 +43,22 @@
         </div>
         <div class="si-week-hours">
           <label for="hours">Hours</label>
-          <input type="number" />
+          <input type="number" id="hours" />
         </div>
       </section>
       <section id="data-output">
         <p>Modul 2 <i class="fa-solid fa-chevron-down"></i></p>
+        <hr />
+        <p>SI Week 1</p>
+        <div class="data">
+          <p>SI Week 1 Invested Hours:</p>
+          <span class="invested-hours"></span>
+          <p>Finished :</p>
+          <span class="finished-in-percent"></span>
+        </div>
+        <div class="display-data-details">
+          <button>Details</button>
+        </div>
       </section>
     </main>
     <script src="todoList.js"></script>
