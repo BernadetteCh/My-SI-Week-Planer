@@ -16,3 +16,11 @@ h1 {
 #delete-AllTodos {
   float: right;
 }
+.delete-AllTodos-button {
+  padding: 12px;
+  margin-top: 100px;
+}
+
+#input-todos {
+  text-align: center;
+}
