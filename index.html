@@ -13,7 +13,7 @@
   </head>
   <body>
     <header>
-      <h1>My SI - Week Orginazer</h1>
+      <h1>My SI - Week Organizer</h1>
     </header>
     <main>
       <div id="input-todos">
@@ -24,6 +24,20 @@
       <div class="delete-AllTodos-button">
         <button id="delete-AllTodos">Delete All</button>
       </div>
+      <section>
+        <div class="si-week">
+          <label for="si-week">SI-Week</label>
+          <input type="number" id="si-week" />
+        </div>
+        <div class="si-week-date">
+          <label for="date" class="date">Day</label>
+          <input type="date" id="date" min="2022-01-01" max="2024-12-31" />
+        </div>
+        <div class="si-week-hours">
+          <label for="hours">Hours</label>
+          <input type="number" />
+        </div>
+      </section>
     </main>
     <script src="todoList.js"></script>
     <script src="dataManager.js"></script>
