@@ -5,20 +5,18 @@ main {
 h1 {
   text-align: center;
 }
-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
+
 select {
   display: block;
 }
 .input-field {
   text-align: center;
 }
-.todo,
+
 .si-week,
 .si-week-date,
-.si-week-hours {
+.si-week-hours,
+.todo {
   padding: 12px;
 }
 /* .date {
@@ -35,6 +33,7 @@ select {
 .delete-AllTodos-button {
   padding: 12px;
   margin-top: 100px;
+  margin-bottom: 50px;
 }
 
 #input-todos {
@@ -42,4 +41,13 @@ select {
 }
 #data-output {
   margin-top: 100px;
+}
+#hours,
+#date {
+  display: block;
+}
+#si-week-input-data,
+.data {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
