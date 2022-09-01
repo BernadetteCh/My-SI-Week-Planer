@@ -3,7 +3,7 @@ const input = document.querySelector(".todoInput");
 const todoList = document.getElementById("todo-list");
 let TODOS;
 let completedTodo;
-let counter = 0;
+let countCompletedTodos = 0;
 
 /*For the window object, the load event is fired when the whole
 webpage (HTML) has loaded fully, including all dependent resources,
@@ -46,6 +46,10 @@ function markTodoAsChecked(checkTodoArray) {
     todo.addEventListener("click", () => {
       TODOS[index].completed = true;
       localStorage.setItem("todos", JSON.stringify(TODOS));
+      if (TODOS[index].completed === true) {
+        countCompletedTodos++;
+      }
+      console.log(countCompletedTodos);
       displayTodos();
     });
   });
@@ -73,11 +77,10 @@ function displayTodos() {
     // input.value.completed = todo.true;
     completedTodo = todo.completed;
     if (completedTodo === true) {
-      console.log("Yeah");
       todoContent.style.textDecoration = "line-through";
-      counter++;
     }
   });
+
   let checkTodo = document.querySelectorAll(".done");
   let removeTodo = document.querySelectorAll(".delete");
   let checkTodoArray = Array.from(checkTodo);
