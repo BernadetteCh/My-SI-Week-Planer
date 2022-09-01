@@ -5,11 +5,21 @@ main {
 h1 {
   text-align: center;
 }
+section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
 .input-field {
   text-align: center;
 }
-.todos {
+.todo,
+.si-week,
+.si-week-date,
+.si-week-hours {
   padding: 12px;
+}
+.date {
+  display: block;
 }
 .done,
 .delete,
