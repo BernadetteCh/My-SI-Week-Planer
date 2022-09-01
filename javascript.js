@@ -3,17 +3,18 @@ const input = document.querySelector(".todoInput");
 const todoList = document.getElementById("todo-list");
 let TODOS;
 let completedTodo;
+let counter = 0;
 
 /*For the window object, the load event is fired when the whole
 webpage (HTML) has loaded fully, including all dependent resources,
 including JavaScript files, CSS files, and images. */
 window.addEventListener("load", () => {
-  TODOS = JSON.parse(localStorage.getItem("TODOS"));
+  TODOS = JSON.parse(localStorage.getItem("todos"));
 
   if (TODOS === null) {
     TODOS = [];
   } else {
-    TODOS = JSON.parse(localStorage.getItem("TODOS"));
+    TODOS = JSON.parse(localStorage.getItem("todos"));
   }
 
   button.addEventListener("click", (event) => {
@@ -24,7 +25,7 @@ window.addEventListener("load", () => {
       completed: false,
     };
     TODOS.push(todo);
-    localStorage.setItem("TODOS", JSON.stringify(TODOS));
+    localStorage.setItem("todos", JSON.stringify(TODOS));
     displayTodos();
   });
   displayTodos();
@@ -34,7 +35,7 @@ function removeTodoFromList(removeTodoArray) {
   removeTodoArray.forEach(function (todo, index) {
     todo.addEventListener("click", () => {
       TODOS.splice(TODOS.indexOf(TODOS[index]), 1);
-      localStorage.setItem("TODOS", JSON.stringify(TODOS));
+      localStorage.setItem("todos", JSON.stringify(TODOS));
       displayTodos();
     });
   });
@@ -44,7 +45,7 @@ function markTodoAsChecked(checkTodoArray) {
   checkTodoArray.forEach(function (todo, index) {
     todo.addEventListener("click", () => {
       TODOS[index].completed = true;
-      localStorage.setItem("TODOS", JSON.stringify(TODOS));
+      localStorage.setItem("todos", JSON.stringify(TODOS));
       displayTodos();
     });
   });
@@ -74,9 +75,9 @@ function displayTodos() {
     if (completedTodo === true) {
       console.log("Yeah");
       todoContent.style.textDecoration = "line-through";
+      counter++;
     }
   });
-
   let checkTodo = document.querySelectorAll(".done");
   let removeTodo = document.querySelectorAll(".delete");
   let checkTodoArray = Array.from(checkTodo);
