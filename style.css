@@ -11,10 +11,8 @@ h1 {
 .todos {
   padding: 12px;
 }
-
-.delete {
-  float: right;
-}
-.done {
+.done,
+.delete,
+#delete-AllTodos {
   float: right;
 }
