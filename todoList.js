@@ -4,7 +4,6 @@ const todoList = document.getElementById("todo-list");
 const deleteAllButton = document.getElementById("delete-AllTodos");
 let investedHours = document.querySelector(".finished-in-percent");
 let TODOS;
-let FINISHEDTASKS;
 let countCompletedTodos = 0;
 let completedTodo;
 
@@ -13,7 +12,6 @@ webpage (HTML) has loaded fully, including all dependent resources,
 including JavaScript files, CSS files, and images. */
 window.addEventListener("load", () => {
   TODOS = JSON.parse(localStorage.getItem("todos"));
-  FINISHEDTASKS = localStorage.getItem("finish");
 
   if (TODOS === null) {
     TODOS = [];
@@ -49,7 +47,7 @@ window.addEventListener("load", () => {
   displayTodos();
 });
 
-function calculateFinish() {
+function calculatePercentage() {
   let result = 0;
   let counter = 0;
 
@@ -69,6 +67,7 @@ function removeTodoFromList(removeTodoArray) {
     todo.addEventListener("click", () => {
       TODOS.splice(TODOS.indexOf(TODOS[index]), 1);
       localStorage.setItem("todos", JSON.stringify(TODOS));
+      calculatePercentage();
       displayTodos();
     });
   });
@@ -80,7 +79,7 @@ function markTodoAsChecked(checkTodoArray) {
       TODOS[index].completed = true;
       localStorage.setItem("todos", JSON.stringify(TODOS));
       if (TODOS[index].completed === true) {
-        calculateFinish();
+        calculatePercentage();
       }
 
       console.log(countCompletedTodos);
