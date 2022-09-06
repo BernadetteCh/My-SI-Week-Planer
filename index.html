@@ -25,6 +25,14 @@
         <button id="delete-AllTodos">Delete All</button>
       </div>
       <section id="si-week-input-data">
+        <div class="si-week-date">
+          <label for="date" class="date">Day</label>
+          <input type="date" id="date" min="2022-01-01" max="2024-12-31" />
+        </div>
+        <div class="si-week-hours">
+          <label for="hours">Hours</label>
+          <input type="number" id="hours" />
+        </div>
         <div class="si-week">
           <label for="si-week">SI-Week</label>
           <select id="si-week">
@@ -37,14 +45,6 @@
             <option value="4">4</option>
           </select>
         </div>
-        <div class="si-week-date">
-          <label for="date" class="date">Day</label>
-          <input type="date" id="date" min="2022-01-01" max="2024-12-31" />
-        </div>
-        <div class="si-week-hours">
-          <label for="hours">Hours</label>
-          <input type="number" id="hours" />
-        </div>
       </section>
       <section id="data-output">
         <p>Modul 2 <i class="fa-solid fa-chevron-down"></i></p>
@@ -56,7 +56,15 @@
           <p>Finished : <span class="finished-in-percent"></span></p>
         </div>
         <div class="display-data-details">
-          <button>Details</button>
+          <button id="displayDetails">Details</button>
+        </div>
+        <div id="data-table">
+          <table id="table">
+            <tr>
+              <th class="tableHeader-day">Day</th>
+              <th class="tableHeader-hours">Hours</th>
+            </tr>
+          </table>
         </div>
       </section>
     </main>
