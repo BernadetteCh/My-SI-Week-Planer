@@ -17,3 +17,19 @@ function setSIWeekDataToLocalStorage(event) {
 }
 
 chosenSiWeek.addEventListener("change", setSIWeekDataToLocalStorage);
+
+displayDetailsButton.addEventListener("click", () => {
+  SIWEEKDATA = JSON.parse(localStorage.getItem("data"));
+  const table = document.getElementById("table");
+  const tableRow = document.createElement("tr");
+  const cellDay = document.createElement("td");
+  const cellHours = document.createElement("td");
+
+  for (let data of SIWEEKDATA) {
+    table.appendChild(tableRow);
+    tableRow.appendChild(cellDay);
+    tableRow.appendChild(cellHours);
+    cellDay.innerHTML = data.date;
+    cellHours.innerHTML = data.hours;
+  }
+});
