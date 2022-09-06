@@ -2,20 +2,25 @@ const button = document.querySelector(".addTodo");
 const input = document.querySelector(".todoInput");
 const todoList = document.getElementById("todo-list");
 const deleteAllButton = document.getElementById("delete-AllTodos");
+let investedHours = document.querySelector(".finished-in-percent");
 let TODOS;
-let completedTodo;
+let FINISHEDTASKS;
 let countCompletedTodos = 0;
+let completedTodo;
 
 /*For the window object, the load event is fired when the whole
 webpage (HTML) has loaded fully, including all dependent resources,
 including JavaScript files, CSS files, and images. */
 window.addEventListener("load", () => {
   TODOS = JSON.parse(localStorage.getItem("todos"));
+  FINISHEDTASKS = localStorage.getItem("finish");
 
   if (TODOS === null) {
     TODOS = [];
+    investedHours.innerHTML = 0 + "%";
   } else {
     TODOS = JSON.parse(localStorage.getItem("todos"));
+    investedHours.innerHTML = localStorage.getItem("finish") + "%";
   }
 
   button.addEventListener("click", (event) => {
@@ -35,6 +40,7 @@ window.addEventListener("load", () => {
 
     if (localStorage.getItem("todos") === null) {
       console.log("empty");
+      investedHours.innerHTML = 0 + "%";
       todoList.innerHTML = "";
       TODOS = [];
     }
@@ -42,6 +48,21 @@ window.addEventListener("load", () => {
 
   displayTodos();
 });
+
+function calculateFinish() {
+  let result = 0;
+  let counter = 0;
+
+  for (let data of TODOS) {
+    if (data.completed === true) {
+      counter = counter + 1;
+      result = Math.round((counter * 100) / TODOS.length);
+    }
+  }
+
+  localStorage.setItem("finish", JSON.stringify(result));
+  investedHours.innerHTML = localStorage.getItem("finish") + "%";
+}
 
 function removeTodoFromList(removeTodoArray) {
   removeTodoArray.forEach(function (todo, index) {
@@ -59,8 +80,9 @@ function markTodoAsChecked(checkTodoArray) {
       TODOS[index].completed = true;
       localStorage.setItem("todos", JSON.stringify(TODOS));
       if (TODOS[index].completed === true) {
-        countCompletedTodos++;
+        calculateFinish();
       }
+
       console.log(countCompletedTodos);
       displayTodos();
     });
@@ -86,10 +108,10 @@ function displayTodos() {
     checkButton.setAttribute("class", "done");
     todoLine.appendChild(checkButton);
     checkButton.innerHTML = "OK";
-    // input.value.completed = todo.true;
     completedTodo = todo.completed;
     if (completedTodo === true) {
       todoContent.style.textDecoration = "line-through";
+      checkButton.disabled = true;
     }
   });
 
@@ -101,4 +123,5 @@ function displayTodos() {
   markTodoAsChecked(checkTodoArray);
   removeTodoFromList(removeTodoArray);
 }
+
 // event.target.previousElementSibling.style.textDecoration = "line-through";
