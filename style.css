@@ -1,5 +1,5 @@
 main {
-  width: 60%;
+  width: 50%;
   margin: 0 auto;
 }
 h1 {
@@ -19,9 +19,7 @@ select {
 .todo {
   padding: 12px;
 }
-/* .date {
-  display: block;
-} */
+
 .todos {
   padding: 12px;
 }
@@ -39,6 +37,7 @@ select {
 #input-todos {
   text-align: center;
 }
+
 #data-output {
   margin-top: 100px;
 }
