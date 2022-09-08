@@ -21,8 +21,8 @@
         <button class="addTodo">add Todo</button>
       </div>
       <div id="todo-list"></div>
-      <div class="delete-AllTodos-button">
-        <button id="delete-AllTodos">Delete All</button>
+      <div class="delete-AllTodos-button hide-button">
+        <button id="delete-AllTodos">Delete All Projects</button>
       </div>
       <section id="si-week-input-data">
         <div class="si-week-date">
@@ -34,8 +34,8 @@
           <input type="number" id="hours" />
         </div>
         <div class="si-week">
-          <label for="si-week">SI-Week</label>
-          <select id="si-week">
+          <label for="select-si-week">SI-Week</label>
+          <select id="select-si-week">
             <option value="Choose SI-Week" disabled hidden selected>
               Choose your SI-Week
             </option>
@@ -47,29 +47,34 @@
         </div>
       </section>
       <section id="data-output">
-        <p>Modul 2 <i class="fa-solid fa-chevron-down"></i></p>
+        <p>Modul 2 <i class="fa-solid fa-chevron-down modul2"></i></p>
         <hr />
-        <p>SI Week 1</p>
-        <div class="data">
-          <p>SI Week 1 Invested Hours: <span class="invested-hours"></span></p>
+        <div class="hide">
+          <p>SI Week 1</p>
+          <div class="data">
+            <p>
+              SI Week 1 Invested Hours: <span class="invested-hours"></span>
+            </p>
 
-          <p>Finished : <span class="finished-in-percent"></span></p>
-        </div>
-        <div class="display-data-details">
-          <button id="displayDetails">Details</button>
-        </div>
-        <div id="data-table">
-          <table id="table">
-            <tr>
-              <th class="tableHeader-day">Day</th>
-              <th class="tableHeader-hours">Hours</th>
-            </tr>
-          </table>
+            <p>Finished : <span class="finished-in-percent"></span></p>
+          </div>
+          <div class="display-data-details">
+            <button id="displayDetails">Details</button>
+          </div>
+          <div id="data-table">
+            <table id="table" class="hide">
+              <tr>
+                <th class="tableHeader-day"></th>
+                <th class="tableHeader-hours"></th>
+              </tr>
+              <div id="table-content"></div>
+            </table>
+          </div>
         </div>
       </section>
     </main>
     <script type="module" src="todoList.js"></script>
-    <script type="module" src="dataManager.js"></script>
     <script type="module" src="SIWeekManager.js"></script>
+    <script type="module" src="dataManager.js"></script>
   </body>
 </html>
