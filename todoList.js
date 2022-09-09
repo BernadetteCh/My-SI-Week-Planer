@@ -2,12 +2,16 @@ const button = document.querySelector(".addTodo");
 const input = document.querySelector(".todoInput");
 const todoList = document.getElementById("todo-list");
 const deleteAllButton = document.getElementById("delete-AllTodos");
+const percentageStatus = document.querySelector(".percentage-status");
+const saveStatus = document.getElementById("save-status");
+let FINISH;
 
 let toggleDeleteButton = document.querySelector(".hide-button");
-let investedHours = document.querySelector(".finished-in-percent");
+let finishedInPercentage = document.querySelector(".finished-in-percent");
 let TODOS;
 let countCompletedTodos = 0;
 let completedTodo;
+let userInput;
 
 /*For the window object, the load event is fired when the whole
 webpage (HTML) has loaded fully, including all dependent resources,
@@ -15,13 +19,21 @@ including JavaScript files, CSS files, and images. */
 
 //window.addEventListener("load", () => {
 TODOS = JSON.parse(localStorage.getItem("todos"));
+FINISH = JSON.parse(localStorage.getItem("finished"));
 
 if (TODOS === null) {
   TODOS = [];
-  investedHours.innerHTML = 0 + "%";
+  percentageStatus.innerHTML = 0 + "%";
 } else {
   TODOS = JSON.parse(localStorage.getItem("todos"));
-  investedHours.innerHTML = localStorage.getItem("finish") + "%";
+  percentageStatus.innerHTML = localStorage.getItem("status") + "%";
+  toggleDeleteButton.classList.remove("hide-button");
+}
+
+if (FINISH === null) {
+  finishedInPercentage.innerHTML = "";
+} else {
+  finishedInPercentage.innerHTML = localStorage.getItem("finished") + "%";
 }
 
 button.addEventListener("click", (event) => {
@@ -38,16 +50,39 @@ button.addEventListener("click", (event) => {
 });
 
 deleteAllButton.addEventListener("click", () => {
-  localStorage.clear("todos");
+  window.localStorage.removeItem("todos");
+  window.localStorage.removeItem("status");
 
   if (localStorage.getItem("todos") === null) {
     console.log("empty");
-    investedHours.innerHTML = 0 + "%";
+    percentageStatus.innerHTML = 0 + "%";
     todoList.innerHTML = "";
-    TODOS = [];
   }
 
   toggleDeleteButton.classList.add("hide-button");
+});
+
+saveStatus.addEventListener("click", () => {
+  let askUserForSiWeek;
+  let correctInput = false;
+  while (correctInput === false) {
+    askUserForSiWeek = prompt(
+      "Fo which SI Week you want to save your progress? please type in a number 😃"
+    );
+    if (isNaN(askUserForSiWeek)) {
+      alert("Nice try, a number please");
+    } else {
+      userInput = askUserForSiWeek;
+      correctInput = true;
+    }
+  }
+
+  if (userInput === "1") {
+    let statusOfPercantage = localStorage.getItem("status");
+    finishedInPercentage.innerHTML = statusOfPercantage + "%";
+
+    localStorage.setItem("finished", JSON.stringify(+statusOfPercantage));
+  }
 });
 
 displayTodos();
@@ -64,8 +99,8 @@ function calculatePercentage() {
     }
   }
 
-  localStorage.setItem("finish", JSON.stringify(result));
-  investedHours.innerHTML = localStorage.getItem("finish") + "%";
+  localStorage.setItem("status", JSON.stringify(result));
+  percentageStatus.innerHTML = localStorage.getItem("status") + "%";
 }
 
 function removeTodoFromList(removeTodoArray) {
