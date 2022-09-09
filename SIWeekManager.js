@@ -4,8 +4,10 @@ const dateControl = document.getElementById("date");
 const investedHoursOutput = document.querySelector(".invested-hours");
 const displayDetailsButton = document.getElementById("displayDetails");
 const displayModul2 = document.querySelector(".modul2");
+
 const table = document.getElementById("table");
-let hideSiWeekSection = document.querySelector(".hide");
+// let hideSiWeekSection = document.querySelector(".hide");
+let hideSiWeekSection = document.querySelectorAll(".hide");
 let dataTable = document.getElementById("data-table");
 let tableHeader = document.querySelector(".tableHeader-day");
 
@@ -45,12 +47,16 @@ window.addEventListener("load", () => {
     let select_box = document.getElementById("select-si-week");
     select_box.selectedIndex = "Choose SI-Week";
     investedHours.value = "";
+    dateControl.value = "";
 
     sumInvestedHours();
     // location.reload();
   });
+
   displayModul2.addEventListener("click", () => {
-    hideSiWeekSection.classList.toggle("hide");
+    hideSiWeekSection.forEach(function (siWeeks) {
+      siWeeks.classList.toggle("hide");
+    });
   });
 
   drawTable();
