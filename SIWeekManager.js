@@ -1,17 +1,25 @@
 const chosenSiWeek = document.getElementById("select-si-week");
 const investedHours = document.getElementById("hours");
 const dateControl = document.getElementById("date");
-const investedHoursOutput = document.querySelector(".invested-hours");
-const displayDetailsButton = document.getElementById("displayDetails");
+const investedHoursOutput = document.querySelector(
+  ".invested-hours-si-week-one"
+);
+const displayTableWeekOne = document.getElementById(
+  "displayDetails-si-week-one"
+);
+const displayTableWeekTwo = document.getElementById(
+  "displayDetails-si-week-two"
+);
 const displayModul2 = document.querySelector(".modul2");
 
-const table = document.getElementById("table");
+const tableWeekOne = document.getElementById("table-si-week-one");
+const tableWeekTwo = document.getElementById("table-si-week-two");
 // let hideSiWeekSection = document.querySelector(".hide");
 let hideSiWeekSection = document.querySelectorAll(".hide");
-let dataTable = document.getElementById("data-table");
+let dataTable = document.getElementById("data-table-si-week-one");
 let tableHeader = document.querySelector(".tableHeader-day");
 
-let SIWEEKDATA;
+let SIWEEKONE;
 let hoursCollection = [];
 
 //check error document is not defined
@@ -22,13 +30,15 @@ if (typeof window !== "undefined") {
 }
 
 window.addEventListener("load", () => {
-  SIWEEKDATA = JSON.parse(localStorage.getItem("data"));
+  SIWEEKONE = JSON.parse(localStorage.getItem("data"));
 
-  if (SIWEEKDATA === null) {
-    SIWEEKDATA = [];
+  if (SIWEEKONE === null) {
+    SIWEEKONE = [];
   } else {
-    SIWEEKDATA = JSON.parse(localStorage.getItem("data"));
-    investedHoursOutput.innerHTML = localStorage.getItem("investedHours");
+    SIWEEKONE = JSON.parse(localStorage.getItem("data"));
+    investedHoursOutput.innerHTML = localStorage.getItem(
+      "investedHours-si-one"
+    );
   }
 
   chosenSiWeek.addEventListener("change", (event) => {
@@ -39,8 +49,8 @@ window.addEventListener("load", () => {
     };
 
     if (event.target.value === "1") {
-      SIWEEKDATA.push(data);
-      localStorage.setItem("data", JSON.stringify(SIWEEKDATA));
+      SIWEEKONE.push(data);
+      localStorage.setItem("data", JSON.stringify(SIWEEKONE));
       drawTable();
     }
 
@@ -50,12 +60,12 @@ window.addEventListener("load", () => {
     dateControl.value = "";
 
     sumInvestedHours();
-    // location.reload();
   });
 
   displayModul2.addEventListener("click", () => {
     hideSiWeekSection.forEach(function (siWeeks) {
       siWeeks.classList.toggle("hide");
+      tableWeekOne.classList.toggle("hide");
     });
   });
 
@@ -74,17 +84,17 @@ function sumInvestedHours() {
     result = result + hour;
   }
   console.log(result);
-  localStorage.setItem("investedHours", JSON.stringify(result));
-  investedHoursOutput.innerHTML = localStorage.getItem("investedHours");
+  localStorage.setItem("investedHours-si-one", JSON.stringify(result));
+  investedHoursOutput.innerHTML = localStorage.getItem("investedHours-si-one");
 }
 function drawTable() {
-  table.innerHTML = "";
+  tableWeekOne.innerHTML = "";
 
-  for (let data of SIWEEKDATA) {
+  for (let data of SIWEEKONE) {
     const tableRow = document.createElement("tr");
     let cellDay = document.createElement("td");
     let cellHours = document.createElement("td");
-    table.appendChild(tableRow);
+    tableWeekOne.appendChild(tableRow);
     tableRow.appendChild(cellDay);
     tableRow.appendChild(cellHours);
     cellDay.innerHTML = data.date;
@@ -93,6 +103,12 @@ function drawTable() {
     cellHours.setAttribute("class", "hours");
   }
 }
-displayDetailsButton.addEventListener("click", () => {
-  table.classList.toggle("hide");
+
+displayTableWeekOne.addEventListener("click", () => {
+  console.log("Hi");
+  tableWeekOne.classList.toggle("hide");
+});
+
+displayTableWeekTwo.addEventListener("click", () => {
+  console.log("goodbuy");
 });
