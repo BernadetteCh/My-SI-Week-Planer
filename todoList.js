@@ -7,7 +7,9 @@ const saveStatus = document.getElementById("save-status");
 let FINISH;
 
 let toggleDeleteButton = document.querySelector(".hide-button");
-let finishedInPercentage = document.querySelector(".finished-in-percent");
+let finishedInPercentage = document.querySelector(
+  ".finished-in-percent-si-week-one"
+);
 let TODOS;
 let countCompletedTodos = 0;
 let completedTodo;
@@ -19,7 +21,7 @@ including JavaScript files, CSS files, and images. */
 
 //window.addEventListener("load", () => {
 TODOS = JSON.parse(localStorage.getItem("todos"));
-FINISH = JSON.parse(localStorage.getItem("finished"));
+FINISH = JSON.parse(localStorage.getItem("finished-si-one"));
 
 if (TODOS === null) {
   TODOS = [];
@@ -33,7 +35,8 @@ if (TODOS === null) {
 if (FINISH === null) {
   finishedInPercentage.innerHTML = "";
 } else {
-  finishedInPercentage.innerHTML = localStorage.getItem("finished") + "%";
+  finishedInPercentage.innerHTML =
+    localStorage.getItem("finished-si-one") + "%";
 }
 
 button.addEventListener("click", (event) => {
@@ -81,7 +84,10 @@ saveStatus.addEventListener("click", () => {
     let statusOfPercantage = localStorage.getItem("status");
     finishedInPercentage.innerHTML = statusOfPercantage + "%";
 
-    localStorage.setItem("finished", JSON.stringify(+statusOfPercantage));
+    localStorage.setItem(
+      "finished-si-one",
+      JSON.stringify(+statusOfPercantage)
+    );
   }
 });
 
