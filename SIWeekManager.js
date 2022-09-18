@@ -4,22 +4,47 @@ const dateControl = document.getElementById("date");
 const investedHoursOutput = document.querySelector(
   ".invested-hours-si-week-one"
 );
+const investedHoursOutputWeekTwo = document.querySelector(
+  ".invested-hours-si-week-two"
+);
+
+const investedHoursOutputWeekThree = document.querySelector(
+  ".invested-hours-si-week-three"
+);
+const investedHoursOutputWeekFour = document.querySelector(
+  ".invested-hours-si-week-four"
+);
+const investedHoursOutputWeekFive = document.querySelector(
+  ".invested-hours-si-week-five"
+);
 const displayTableWeekOne = document.getElementById(
   "displayDetails-si-week-one"
 );
 const displayTableWeekTwo = document.getElementById(
   "displayDetails-si-week-two"
 );
+const displayTableWeekThree = document.getElementById(
+  "displayDetails-si-week-three"
+);
+const displayTableWeekFour = document.getElementById(
+  "displayDetails-si-week-four"
+);
+const displayTableWeekFive = document.getElementById(
+  "displayDetails-si-week-five"
+);
 const displayModul2 = document.querySelector(".modul2");
 
 const tableWeekOne = document.getElementById("table-si-week-one");
 const tableWeekTwo = document.getElementById("table-si-week-two");
-// let hideSiWeekSection = document.querySelector(".hide");
+const tableWeekThree = document.getElementById("table-si-week-three");
+const tableWeekFour = document.getElementById("table-si-week-four");
+const tableWeekFive = document.getElementById("table-si-week-five");
+// let hideSIWEEKS[currentSiWeek]ection = document.querySelector(".hide");
 let hideSiWeekSection = document.querySelectorAll(".hide");
 let dataTable = document.getElementById("data-table-si-week-one");
 let tableHeader = document.querySelector(".tableHeader-day");
 
-let SIWEEKONE;
+let SIWEEKS = [];
 let hoursCollection = [];
 
 //check error document is not defined
@@ -30,28 +55,50 @@ if (typeof window !== "undefined") {
 }
 
 window.addEventListener("load", () => {
-  SIWEEKONE = JSON.parse(localStorage.getItem("data"));
+  SIWEEKS = getData();
 
-  if (SIWEEKONE === null) {
-    SIWEEKONE = [];
-  } else {
-    SIWEEKONE = JSON.parse(localStorage.getItem("data"));
-    investedHoursOutput.innerHTML = localStorage.getItem(
-      "investedHours-si-one"
-    );
+  if (SIWEEKS === null) {
+    SIWEEKS = [];
   }
 
   chosenSiWeek.addEventListener("change", (event) => {
+    let index = +event.target.value - 1;
+    if (SIWEEKS[index] === undefined || SIWEEKS[index] === null) {
+      SIWEEKS[index] = {
+        investedHours: 0,
+        days: [],
+      };
+    }
+
     const data = {
       hours: investedHours.value,
       date: dateControl.value,
       siWeek: chosenSiWeek.value,
     };
 
-    if (event.target.value === "1") {
-      SIWEEKONE.push(data);
-      localStorage.setItem("data", JSON.stringify(SIWEEKONE));
-      drawTable();
+    SIWEEKS[index].days.push(data);
+    saveData(index);
+    //drawTable(index);
+
+    if (index === 0) {
+      sumInvestedHours(index);
+      drawTable(0);
+    }
+    if (index === 1) {
+      sumInvestedHours(index);
+      drawTable(1);
+    }
+    if (index === 2) {
+      sumInvestedHours(index);
+      drawTable(2);
+    }
+    if (index === 3) {
+      sumInvestedHours(index);
+      drawTable(3);
+    }
+    if (index === 4) {
+      sumInvestedHours(index);
+      drawTable(4);
     }
 
     let select_box = document.getElementById("select-si-week");
@@ -59,56 +106,188 @@ window.addEventListener("load", () => {
     investedHours.value = "";
     dateControl.value = "";
 
-    sumInvestedHours();
+    sumInvestedHours(index);
   });
 
   displayModul2.addEventListener("click", () => {
-    hideSiWeekSection.forEach(function (siWeeks) {
-      siWeeks.classList.toggle("hide");
+    hideSiWeekSection.forEach(function (siweeks) {
+      siweeks.classList.toggle("hide");
       tableWeekOne.classList.toggle("hide");
     });
+
+    // for (let i = 0; i < SIWEEKS.length; i++) {
+    //   console.log(i);
+    //   drawTable(i);
+    // }
   });
 
-  drawTable();
+  if (SIWEEKS[0] === null || SIWEEKS[0] === undefined) {
+    investedHoursOutput.innerHTML = "";
+  } else {
+    investedHoursOutput.innerHTML = SIWEEKS[0].investedHours;
+  }
+
+  if (SIWEEKS[1] === null || SIWEEKS[1] === undefined) {
+    investedHoursOutputWeekTwo.innerHTML = "";
+  } else {
+    investedHoursOutputWeekTwo.innerHTML = SIWEEKS[1].investedHours;
+  }
+
+  if (SIWEEKS[2] === null || SIWEEKS[2] === undefined) {
+    investedHoursOutputWeekThree.innerHTML = "";
+  } else {
+    investedHoursOutputWeekThree.innerHTML = SIWEEKS[2].investedHours;
+  }
+
+  if (SIWEEKS[3] === null || SIWEEKS[3] === undefined) {
+    investedHoursOutputWeekFour.innerHTML = "";
+  } else {
+    investedHoursOutputWeekFour.innerHTML = SIWEEKS[3].investedHours;
+  }
+  if (SIWEEKS[4] === null || SIWEEKS[4] === undefined) {
+    investedHoursOutputWeekFive.innerHTML = "";
+  } else {
+    investedHoursOutputWeekFive.innerHTML = SIWEEKS[4].investedHours;
+  }
+
+  // for (let i = 0; i < SIWEEKS.length; i++) {
+  //   console.log(i);
+  //   drawTable(i);
+  // }
 });
 
-function sumInvestedHours() {
-  let hours = document.getElementsByClassName("hours");
+function sumInvestedHours(index) {
+  let json = JSON.parse(window.localStorage.getItem("siWeeks"));
+
   let collectionOFHours = [];
   let result = 0;
-  for (let hour of hours) {
-    console.log(hour);
-    collectionOFHours.push(+hour.innerHTML);
+  for (let hour of json[index].days) {
+    console.log(+hour.hours);
+    collectionOFHours.push(+hour.hours);
   }
+
   for (let hour of collectionOFHours) {
     result = result + hour;
   }
-  console.log(result);
-  localStorage.setItem("investedHours-si-one", JSON.stringify(result));
-  investedHoursOutput.innerHTML = localStorage.getItem("investedHours-si-one");
-}
-function drawTable() {
-  tableWeekOne.innerHTML = "";
 
-  for (let data of SIWEEKONE) {
-    const tableRow = document.createElement("tr");
-    let cellDay = document.createElement("td");
-    let cellHours = document.createElement("td");
-    tableWeekOne.appendChild(tableRow);
-    tableRow.appendChild(cellDay);
-    tableRow.appendChild(cellHours);
-    cellDay.innerHTML = data.date;
-    cellDay.setAttribute("class", "day");
-    cellHours.innerHTML = data.hours;
-    cellHours.setAttribute("class", "hours");
+  SIWEEKS[index].investedHours = result;
+  saveData(SIWEEKS[index]);
+
+  if (index === 0) {
+    investedHoursOutput.innerHTML = getData()[index].investedHours;
+  } else if (index === 1) {
+    investedHoursOutputWeekTwo.innerHTML = getData()[index].investedHours;
+  } else if (index === 2) {
+    investedHoursOutputWeekThree.innerHTML = getData()[index].investedHours;
+  } else if (index === 3) {
+    investedHoursOutputWeekFour.innerHTML = getData()[index].investedHours;
+  } else if (index === 4) {
+    investedHoursOutputWeekFive.innerHTML = getData()[index].investedHours;
+  }
+
+  console.log(JSON.parse(window.localStorage.getItem("siWeeks")));
+}
+function drawTable(index) {
+  console.log(index);
+
+  tableWeekTwo.innerHTML = "";
+  tableWeekOne.innerHTML = "";
+  tableWeekThree.innerHTML = "";
+
+  if (index === 0) {
+    for (let day of SIWEEKS[index].days) {
+      const tableRow = document.createElement("tr");
+      let cellDay = document.createElement("td");
+      let cellHours = document.createElement("td");
+      tableWeekOne.appendChild(tableRow);
+      tableRow.appendChild(cellDay);
+      tableRow.appendChild(cellHours);
+      cellDay.innerHTML = day.date;
+      cellDay.setAttribute("class", "day");
+      cellHours.innerHTML = day.hours;
+      cellHours.setAttribute("class", "hours");
+    }
+  } else if (index === 1) {
+    for (let day of SIWEEKS[index].days) {
+      const tableRow2 = document.createElement("tr");
+      let cellDay = document.createElement("td");
+      let cellHours = document.createElement("td");
+      tableWeekTwo.appendChild(tableRow2);
+      tableRow2.appendChild(cellDay);
+      tableRow2.appendChild(cellHours);
+      cellDay.innerHTML = day.date;
+      cellDay.setAttribute("class", "day");
+      cellHours.innerHTML = day.hours;
+      cellHours.setAttribute("class", "hours");
+    }
+  } else if (index === 2) {
+    for (let day of SIWEEKS[index].days) {
+      const tableRow3 = document.createElement("tr");
+      let cellDay = document.createElement("td");
+      let cellHours = document.createElement("td");
+      tableWeekThree.appendChild(tableRow3);
+      tableRow3.appendChild(cellDay);
+      tableRow3.appendChild(cellHours);
+      cellDay.innerHTML = day.date;
+      cellDay.setAttribute("class", "day");
+      cellHours.innerHTML = day.hours;
+      cellHours.setAttribute("class", "hours");
+    }
+  } else if (index === 3) {
+    tableWeekFour.innerHTML = "";
+    for (let day of SIWEEKS[index].days) {
+      const tableRow4 = document.createElement("tr");
+      let cellDay = document.createElement("td");
+      let cellHours = document.createElement("td");
+      tableWeekFour.appendChild(tableRow4);
+      tableRow4.appendChild(cellDay);
+      tableRow4.appendChild(cellHours);
+      cellDay.innerHTML = day.date;
+      cellDay.setAttribute("class", "day");
+      cellHours.innerHTML = day.hours;
+      cellHours.setAttribute("class", "hours");
+    }
+  } else if (index === 4) {
+    tableWeekFive.innerHTML = "";
+    for (let day of SIWEEKS[index].days) {
+      const tableRow5 = document.createElement("tr");
+      let cellDay = document.createElement("td");
+      let cellHours = document.createElement("td");
+      tableWeekFive.appendChild(tableRow5);
+      tableRow5.appendChild(cellDay);
+      tableRow5.appendChild(cellHours);
+      cellDay.innerHTML = day.date;
+      cellDay.setAttribute("class", "day");
+      cellHours.innerHTML = day.hours;
+      cellHours.setAttribute("class", "hours");
+    }
   }
 }
 
 displayTableWeekOne.addEventListener("click", () => {
   console.log("Hi");
   tableWeekOne.classList.toggle("hide");
+  drawTable(0);
 });
 
 displayTableWeekTwo.addEventListener("click", () => {
   console.log("goodbuy");
+  tableWeekTwo.classList.toggle("hide");
+  drawTable(1);
+});
+
+displayTableWeekThree.addEventListener("click", () => {
+  console.log("Berni");
+  tableWeekThree.classList.toggle("hide");
+  drawTable(2);
+});
+
+displayTableWeekFour.addEventListener("click", () => {
+  tableWeekFour.classList.toggle("hide");
+  drawTable(3);
+});
+
+displayTableWeekFive.addEventListener("click", () => {
+  tableWeekFive.classList.toggle("hide");
+  drawTable(4);
 });
