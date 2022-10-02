@@ -64,6 +64,7 @@ window.addEventListener("load", () => {
   deleteAllButton.addEventListener("click", () => {
     window.localStorage.removeItem("todos");
     window.localStorage.removeItem("status");
+    window.localStorage.removeItem("percentage");
 
     if (localStorage.getItem("todos") === null) {
       console.log("empty");
