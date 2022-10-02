@@ -64,7 +64,6 @@ window.addEventListener("load", () => {
   deleteAllButton.addEventListener("click", () => {
     window.localStorage.removeItem("todos");
     window.localStorage.removeItem("status");
-    window.localStorage.removeItem("percentage");
 
     if (localStorage.getItem("todos") === null) {
       console.log("empty");
@@ -111,8 +110,41 @@ window.addEventListener("load", () => {
     }
   });
 
-  displayPercentage();
+  // displayPercentage();
+  if (PERCENTAGE[0] === null || PERCENTAGE[0] === undefined) {
+    finishedInPercentageWeekOne.innerHTML = "";
+  } else {
+    finishedInPercentageWeekOne.innerHTML =
+      PERCENTAGE[0]["finished-percent-week-1"] + "%";
+  }
 
+  if (PERCENTAGE[1] === null || PERCENTAGE[1] === undefined) {
+    finishedInPercentageWeekTwo.innerHTML = "";
+  } else {
+    finishedInPercentageWeekTwo.innerHTML =
+      PERCENTAGE[1]["finished-percent-week-2"] + "%";
+  }
+
+  if (PERCENTAGE[2] === null || PERCENTAGE[2] === undefined) {
+    finishedInPercentageWeekThree.innerHTML = "";
+  } else {
+    finishedInPercentageWeekThree.innerHTML =
+      PERCENTAGE[2]["finished-percent-week-3"] + "%";
+  }
+
+  if (PERCENTAGE[3] === null || PERCENTAGE[3] === undefined) {
+    finishedInPercentageWeekFour.innerHTML = "";
+  } else {
+    finishedInPercentageWeekFour.innerHTML =
+      PERCENTAGE[3]["finished-percent-week-4"] + "%";
+  }
+
+  if (PERCENTAGE[4] === null || PERCENTAGE[4] === undefined) {
+    finishedInPercentageWeekFour.innerHTML = "";
+  } else {
+    finishedInPercentageWeekFour.innerHTML =
+      PERCENTAGE[4]["finished-percent-week-5"] + "%";
+  }
   displayTodos();
 });
 
