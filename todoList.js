@@ -4,12 +4,24 @@ const todoList = document.getElementById("todo-list");
 const deleteAllButton = document.getElementById("delete-AllTodos");
 const percentageStatus = document.querySelector(".percentage-status");
 const saveStatus = document.getElementById("save-status");
-let FINISH;
 
-let toggleDeleteButton = document.querySelector(".hide-button");
-let finishedInPercentage = document.querySelector(
+const toggleDeleteButton = document.querySelector(".hide-button");
+const finishedInPercentage = document.querySelector(
   ".finished-in-percent-si-week-one"
 );
+const finishedInPercentageWeekTwo = document.querySelector(
+  ".finished-in-percent-si-week-two"
+);
+const finishedInPercentageWeekThree = document.querySelector(
+  ".finished-in-percent-si-week-three"
+);
+const finishedInPercentageWeekFour = document.querySelector(
+  ".finished-in-percent-si-week-four"
+);
+const finishedInPercentageWeekFive = document.querySelector(
+  ".finished-in-percent-si-week-five"
+);
+let FINISH;
 let TODOS;
 let countCompletedTodos = 0;
 let completedTodo;
@@ -21,22 +33,37 @@ including JavaScript files, CSS files, and images. */
 
 //window.addEventListener("load", () => {
 TODOS = JSON.parse(localStorage.getItem("todos"));
-FINISH = JSON.parse(localStorage.getItem("finished-si-one"));
+
+// FINISH = JSON.parse(localStorage.getItem("finished-si-one"));
+// FINISH = JSON.parse(localStorage.getItem("finished-si-two"));
+// FINISH = JSON.parse(localStorage.getItem("finished-si-three"));
 
 if (TODOS === null) {
   TODOS = [];
   percentageStatus.innerHTML = 0 + "%";
 } else {
   TODOS = JSON.parse(localStorage.getItem("todos"));
-  percentageStatus.innerHTML = localStorage.getItem("status") + "%";
+  // percentageStatus.innerHTML = localStorage.getItem("status") + "%";
   toggleDeleteButton.classList.remove("hide-button");
 }
 
 if (FINISH === null) {
   finishedInPercentage.innerHTML = "";
+  finishedInPercentageWeekTwo.innerHTML = "";
+  FINISH = [];
 } else {
   finishedInPercentage.innerHTML =
     localStorage.getItem("finished-si-one") + "%";
+  finishedInPercentageWeekTwo.innerHTML =
+    localStorage.getItem("finished-si-two") + "%";
+  localStorage.getItem("finished-si-three") + "%";
+  finishedInPercentageWeekThree.innerHTML =
+    localStorage.getItem("finished-si-three") + "%";
+  localStorage.getItem("finished-si-four") + "%";
+  finishedInPercentageWeekFour.innerHTML =
+    localStorage.getItem("finished-si-four") + "%";
+  finishedInPercentageWeekFive.innerHTML =
+    localStorage.getItem("finish-si-five") + "%";
 }
 
 button.addEventListener("click", (event) => {
@@ -83,9 +110,37 @@ saveStatus.addEventListener("click", () => {
   if (userInput === "1") {
     let statusOfPercantage = localStorage.getItem("status");
     finishedInPercentage.innerHTML = statusOfPercantage + "%";
-
     localStorage.setItem(
       "finished-si-one",
+      JSON.stringify(+statusOfPercantage)
+    );
+  } else if (userInput === "2") {
+    let statusOfPercantage = localStorage.getItem("status");
+    finishedInPercentageWeekTwo.innerHTML = statusOfPercantage + "%";
+    localStorage.setItem(
+      "finished-si-two",
+      JSON.stringify(+statusOfPercantage)
+    );
+  } else if (userInput === "3") {
+    let statusOfPercantage = localStorage.getItem("status");
+    // console.log(statusOfPercantage);
+    finishedInPercentageWeekThree.innerHTML = statusOfPercantage + "%";
+    localStorage.setItem(
+      "finished-si-three",
+      JSON.stringify(+statusOfPercantage)
+    );
+  } else if (userInput === "4") {
+    let statusOfPercantage = localStorage.getItem("status");
+    finishedInPercentageWeekFour.innerHTML = statusOfPercantage + "%";
+    localStorage.setItem(
+      "finished-si-four",
+      JSON.stringify(+statusOfPercantage)
+    );
+  } else if (userInput === "5") {
+    let statusOfPercantage = localStorage.getItem("status");
+    finishedInPercentageWeekFive.innerHTML = statusOfPercantage + "%";
+    localStorage.setItem(
+      "finished-si-five",
       JSON.stringify(+statusOfPercantage)
     );
   }
