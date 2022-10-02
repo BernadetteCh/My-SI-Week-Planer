@@ -4,12 +4,42 @@ main {
 }
 h1 {
   text-align: center;
+  color: #463f3a;
 }
 
 select {
   display: block;
 }
+hr {
+  color: #463f3a;
+}
 
+.modul-2 {
+  background-color: #f8e7e7;
+  border: none;
+  padding: 8px 18px 8px 18px;
+  border-radius: 8px;
+  color: #a070a1;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  width: 20%;
+  /* color: #463f3a;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+  background-color: #e0afa08f;
+  width: 20%;
+  padding: 8px 18px 8px 18px;
+  border-radius: 8px; */
+}
+.todoInput {
+  border: 1px solid #a070a1;
+  padding: 8px 18px 8px 18px;
+  letter-spacing: 1.5px;
+  border-radius: 8px;
+  margin-right: 8px;
+  color: #a070a1;
+}
 .input-field {
   text-align: center;
 }
@@ -29,6 +59,11 @@ select {
 #delete-AllTodos {
   float: right;
 }
+.delete,
+.done {
+  padding: 4px;
+  color: #463f3a;
+}
 .delete-AllTodos-button {
   padding: 12px;
   margin-top: 100px;
@@ -41,21 +76,90 @@ select {
 .hide-button {
   display: none;
 }
-
+.addTodo {
+  background-color: #f8e7e7;
+  border: none;
+  padding: 8px 18px 8px 18px;
+  border-radius: 8px;
+  color: #a070a1;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+.status {
+  color: #463f3a;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+}
+.date {
+  color: rgb(70, 63, 58);
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.label-hours,
+.label-siweek {
+  color: rgb(70, 63, 58);
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.display-data-details button {
+  padding: 4px 18px 4px 18px;
+  border-radius: 4px;
+  /* background-color: #fdf3f3; */
+  background-color: #e0afa059;
+  color: #450920;
+  letter-spacing: 1.5px;
+  font-size: 14px;
+  border: none;
+}
+.firstkitten {
+  padding-right: 14px;
+  color: #da627d;
+}
+.secondkitten {
+  padding-left: 4px;
+  color: #da627d;
+}
 #input-todos {
   text-align: center;
 }
-
+#delete-AllTodos {
+  background-color: #a070a1;
+  border: none;
+  padding: 8px 18px 8px 18px;
+  border-radius: 8px;
+  color: #f8e7e7;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
 #data-output {
   margin-top: 100px;
 }
+
 #hours,
 #date {
   display: block;
+  padding: 4px 14px 4px 14px;
+  border-radius: 4px;
+  border: 1px solid #e0afa0;
+  color: #463f3a;
 }
-
+#select-si-week {
+  padding: 4px 14px 4px 14px;
+  border-radius: 4px;
+  border: 1px solid #e0afa0;
+  background-color: white;
+  color: #463f3a;
+}
+#save-status {
+  color: #a53860;
+}
 #si-week-input-data,
 .data {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+}
+#data-output div p {
+  color: rgb(70, 63, 58);
+  font-weight: bold;
+  letter-spacing: 2px;
 }

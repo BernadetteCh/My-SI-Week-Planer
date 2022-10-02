@@ -169,14 +169,13 @@ function displayTodos() {
     todoContent.innerHTML = todo.content;
     todoLine.setAttribute("class", "todos");
     todoContent.setAttribute("class", "text");
-    let deleteButton = document.createElement("button");
+    let deleteButton = document.createElement("i");
+    deleteButton.setAttribute("class", "fa-solid fa-trash delete");
     todoLine.appendChild(deleteButton);
-    deleteButton.setAttribute("class", "delete");
-    deleteButton.innerHTML = "Delete";
-    let checkButton = document.createElement("button");
-    checkButton.setAttribute("class", "done");
+
+    let checkButton = document.createElement("i");
+    checkButton.setAttribute("class", "fa-solid fa-paw done");
     todoLine.appendChild(checkButton);
-    checkButton.innerHTML = "OK";
     completedTodo = todo.completed;
     if (completedTodo === true) {
       todoContent.style.textDecoration = "line-through";
