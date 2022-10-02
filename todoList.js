@@ -6,7 +6,7 @@ const percentageStatus = document.querySelector(".percentage-status");
 const saveStatus = document.getElementById("save-status");
 
 const toggleDeleteButton = document.querySelector(".hide-button");
-const finishedInPercentage = document.querySelector(
+const finishedInPercentageWeekOne = document.querySelector(
   ".finished-in-percent-si-week-one"
 );
 const finishedInPercentageWeekTwo = document.querySelector(
@@ -26,128 +26,94 @@ let TODOS;
 let countCompletedTodos = 0;
 let completedTodo;
 let userInput;
+let PERCENTAGE;
 
 /*For the window object, the load event is fired when the whole
 webpage (HTML) has loaded fully, including all dependent resources,
 including JavaScript files, CSS files, and images. */
 
-//window.addEventListener("load", () => {
-TODOS = JSON.parse(localStorage.getItem("todos"));
-
-// FINISH = JSON.parse(localStorage.getItem("finished-si-one"));
-// FINISH = JSON.parse(localStorage.getItem("finished-si-two"));
-// FINISH = JSON.parse(localStorage.getItem("finished-si-three"));
-
-if (TODOS === null) {
-  TODOS = [];
-  percentageStatus.innerHTML = 0 + "%";
-} else {
+window.addEventListener("load", () => {
+  PERCENTAGE = JSON.parse(localStorage.getItem(`percentage`));
   TODOS = JSON.parse(localStorage.getItem("todos"));
-  // percentageStatus.innerHTML = localStorage.getItem("status") + "%";
-  toggleDeleteButton.classList.remove("hide-button");
-}
 
-if (FINISH === null) {
-  finishedInPercentage.innerHTML = "";
-  finishedInPercentageWeekTwo.innerHTML = "";
-  FINISH = [];
-} else {
-  finishedInPercentage.innerHTML =
-    localStorage.getItem("finished-si-one") + "%";
-  finishedInPercentageWeekTwo.innerHTML =
-    localStorage.getItem("finished-si-two") + "%";
-  localStorage.getItem("finished-si-three") + "%";
-  finishedInPercentageWeekThree.innerHTML =
-    localStorage.getItem("finished-si-three") + "%";
-  localStorage.getItem("finished-si-four") + "%";
-  finishedInPercentageWeekFour.innerHTML =
-    localStorage.getItem("finished-si-four") + "%";
-  finishedInPercentageWeekFive.innerHTML =
-    localStorage.getItem("finish-si-five") + "%";
-}
+  if (PERCENTAGE === null) {
+    PERCENTAGE = [];
+  }
 
-button.addEventListener("click", (event) => {
-  event.preventDefault();
-  const todo = {
-    content: input.value,
-    id: Math.random() * 2.5,
-    completed: false,
-  };
-  TODOS.push(todo);
-  localStorage.setItem("todos", JSON.stringify(TODOS));
-  toggleDeleteButton.classList.remove("hide-button");
+  if (TODOS === null) {
+    TODOS = [];
+    percentageStatus.innerHTML = 0 + "%";
+  } else {
+    TODOS = JSON.parse(localStorage.getItem("todos"));
+    toggleDeleteButton.classList.remove("hide-button");
+  }
+
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    const todo = {
+      content: input.value,
+      id: Math.random() * 2.5,
+      completed: false,
+    };
+    TODOS.push(todo);
+    localStorage.setItem("todos", JSON.stringify(TODOS));
+    toggleDeleteButton.classList.remove("hide-button");
+    displayTodos();
+  });
+
+  deleteAllButton.addEventListener("click", () => {
+    window.localStorage.removeItem("todos");
+    window.localStorage.removeItem("status");
+
+    if (localStorage.getItem("todos") === null) {
+      console.log("empty");
+      percentageStatus.innerHTML = 0 + "%";
+      todoList.innerHTML = "";
+    }
+
+    toggleDeleteButton.classList.add("hide-button");
+  });
+
+  saveStatus.addEventListener("click", () => {
+    let askUserForSiWeek;
+    let correctInput = false;
+    while (correctInput === false) {
+      askUserForSiWeek = prompt(
+        "Fo which SI Week you want to save your progress? please type in a number 😃"
+      );
+      if (isNaN(askUserForSiWeek)) {
+        alert("Nice try, a number please");
+      } else {
+        userInput = askUserForSiWeek;
+        correctInput = true;
+      }
+    }
+
+    let savePercentageForSiWeek = `finished-percent-week-${userInput}`;
+    function checkPercentageData(week) {
+      let statusOfPercantage = localStorage.getItem("status");
+      PERCENTAGE.push({ [savePercentageForSiWeek]: `${statusOfPercantage}` });
+      saveDataForPercentage(PERCENTAGE);
+      week.innerHTML = statusOfPercantage + "%";
+    }
+
+    if (userInput === "1") {
+      checkPercentageData(finishedInPercentageWeekOne);
+    } else if (userInput === "2") {
+      checkPercentageData(finishedInPercentageWeekTwo);
+    } else if (userInput === "3") {
+      checkPercentageData(finishedInPercentageWeekThree);
+    } else if (userInput === "4") {
+      checkPercentageData(finishedInPercentageWeekFour);
+    } else if (userInput === "5") {
+      checkPercentageData(finishedInPercentageWeekFive);
+    }
+  });
+
+  displayPercentage();
+
   displayTodos();
 });
-
-deleteAllButton.addEventListener("click", () => {
-  window.localStorage.removeItem("todos");
-  window.localStorage.removeItem("status");
-
-  if (localStorage.getItem("todos") === null) {
-    console.log("empty");
-    percentageStatus.innerHTML = 0 + "%";
-    todoList.innerHTML = "";
-  }
-
-  toggleDeleteButton.classList.add("hide-button");
-});
-
-saveStatus.addEventListener("click", () => {
-  let askUserForSiWeek;
-  let correctInput = false;
-  while (correctInput === false) {
-    askUserForSiWeek = prompt(
-      "Fo which SI Week you want to save your progress? please type in a number 😃"
-    );
-    if (isNaN(askUserForSiWeek)) {
-      alert("Nice try, a number please");
-    } else {
-      userInput = askUserForSiWeek;
-      correctInput = true;
-    }
-  }
-
-  if (userInput === "1") {
-    let statusOfPercantage = localStorage.getItem("status");
-    finishedInPercentage.innerHTML = statusOfPercantage + "%";
-    localStorage.setItem(
-      "finished-si-one",
-      JSON.stringify(+statusOfPercantage)
-    );
-  } else if (userInput === "2") {
-    let statusOfPercantage = localStorage.getItem("status");
-    finishedInPercentageWeekTwo.innerHTML = statusOfPercantage + "%";
-    localStorage.setItem(
-      "finished-si-two",
-      JSON.stringify(+statusOfPercantage)
-    );
-  } else if (userInput === "3") {
-    let statusOfPercantage = localStorage.getItem("status");
-    // console.log(statusOfPercantage);
-    finishedInPercentageWeekThree.innerHTML = statusOfPercantage + "%";
-    localStorage.setItem(
-      "finished-si-three",
-      JSON.stringify(+statusOfPercantage)
-    );
-  } else if (userInput === "4") {
-    let statusOfPercantage = localStorage.getItem("status");
-    finishedInPercentageWeekFour.innerHTML = statusOfPercantage + "%";
-    localStorage.setItem(
-      "finished-si-four",
-      JSON.stringify(+statusOfPercantage)
-    );
-  } else if (userInput === "5") {
-    let statusOfPercantage = localStorage.getItem("status");
-    finishedInPercentageWeekFive.innerHTML = statusOfPercantage + "%";
-    localStorage.setItem(
-      "finished-si-five",
-      JSON.stringify(+statusOfPercantage)
-    );
-  }
-});
-
-displayTodos();
-//});
 
 function calculatePercentage() {
   let result = 0;
