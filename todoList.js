@@ -141,9 +141,9 @@ window.addEventListener("load", () => {
   }
 
   if (PERCENTAGE[4] === null || PERCENTAGE[4] === undefined) {
-    finishedInPercentageWeekFour.innerHTML = "";
+    finishedInPercentageWeekFive.innerHTML = "";
   } else {
-    finishedInPercentageWeekFour.innerHTML =
+    finishedInPercentageWeekFive.innerHTML =
       PERCENTAGE[4]["finished-percent-week-5"] + "%";
   }
   displayTodos();
