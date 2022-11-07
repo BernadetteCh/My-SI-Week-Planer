@@ -46,6 +46,7 @@ window.addEventListener("load", () => {
   } else {
     TODOS = JSON.parse(localStorage.getItem("todos"));
     toggleDeleteButton.classList.remove("hide-button");
+    percentageStatus.innerHTML = localStorage.getItem("status") + "%";
   }
 
   button.addEventListener("click", (event) => {
